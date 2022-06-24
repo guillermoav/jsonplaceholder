@@ -12,33 +12,44 @@
 </head>
 <body>
 	<div class="container">
+		<nav aria-label="breadcrumb">
+		  <ol class="breadcrumb">
+		    <li class="breadcrumb-item"><a href="../">Inicio</a></li>
+		    <li class="breadcrumb-item active" aria-current="page">Posts</li>
+		  </ol>
+		</nav>
+		<div class="row">
+			<div class="col-md-8">
+				<h4>Posts</h4>
+
+				<div class="mt-5">
+					<table class="table">
+					  <thead>
+					    <tr>
+					      <th scope="col">id</th>
+					      <th scope="col">Título</th>
+					      <th scope="col">Acción</th>		      
+					    </tr>
+					  </thead>
+					  <tbody id="tabla_lista_posts">
+					    		    
+					  </tbody>
+					</table>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<h4>Comentarios post</h4>
+				<div class="row mt-5" id="contenido_comments"  style="height:100vh; overflow: scroll;">
+					
+				</div>
+			</div>
+	<div class="container">
 		<div class="row" id="listado_posts">
 			
 
 
 		</div>
-	</div>
-
-	<!-- Modal -->
-	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel"></h5>
-	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-	      </div>
-	      <div class="modal-body" >
-	        <div class="row" id="contenido_modal">
-			</div>	  
-	      </div>
-	      <br>	      
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-	        <button type="button" class="btn btn-primary">Save changes</button>
-	      </div>
-	    </div>
-	  </div>
-	</div>
+	</div>	
 </body>
 </html>
 <script>
@@ -53,28 +64,24 @@
 		let tablePosts = ``;
 		posts.forEach((apost, index) =>{
 			tablePosts += `
-				<div class="col-md-3 mb-5">				
-					<div class="card" style="">
-					  <div class="card-body">
-					    <h5 class="card-title"> ${apost.title}</h5>				    
-					    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-					    
-					    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick="GetDataComments(${apost.id})"> Ver </button>			    
-					  </div>
-					</div>
-				</div>`;
+				<tr>
+		      <th scope="row">${apost.id}</th>
+		      <td>${apost.title}</td>
+		      <td><button type="button" class="btn btn-primary" onClick="GetDataComments(${apost.id})"> Comentarios </button></td>
+		    </tr>`;
 		});
+		
 
-		listado_posts.innerHTML = tablePosts;
+		tabla_lista_posts.innerHTML = tablePosts;
 	}
 
 	const GetDataComments = async ($id) =>{
 		const response = await fetch('https://jsonplaceholder.typicode.com/post/'+$id+'/comments');
 		const comments = await response.json();
   		
-  		let tablePostComments = ``;
+  		let tablePostComments = `<div class="mb-3"><h5 class="card-title"> Post - ${$id}</h5> </div>`;
 		comments.forEach((comment, index) =>{
-			tablePostComments += `
+			tablePostComments += `				
 				<div class="col-md-12 mb-5">				
 					<div class="card" style="">
 					  <div class="card-body">
@@ -86,7 +93,7 @@
 				</div>`;
 		});
 
-		contenido_modal.innerHTML = tablePostComments;
+		contenido_comments.innerHTML = tablePostComments;
 	}
 GetPostsUser(idUsuario);
 </script>

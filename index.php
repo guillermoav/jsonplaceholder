@@ -12,21 +12,30 @@
 </head>
 <body>
 	<div class="container">
+		<nav aria-label="breadcrumb">
+		  <ol class="breadcrumb">		    
+		    <li class="breadcrumb-item active" aria-current="page">Inicio</li>
+		  </ol>
+		</nav>
+
 		<div class="row">
-			<div class="col-md-10">
-				
-				<table class="table">
-				  <thead>
-				    <tr>
-				      <th scope="col">#</th>
-				      <th scope="col">Nombre</th>
-				      <th scope="col">Acción</th>      
-				    </tr>
-				  </thead>
-				  <tbody id="tabla_lista_usuarios">
-				    
-				  </tbody>
-				</table>
+			<div class="col-md-12">
+				<h4>Usuarios</h4>
+
+				<div class="mt-5">
+					<table class="table">
+					  <thead>
+					    <tr>
+					      <th scope="col">#</th>
+					      <th scope="col">Nombre</th>
+					      <th scope="col">Acción</th>      
+					    </tr>
+					  </thead>
+					  <tbody id="tabla_lista_usuarios">
+					    
+					  </tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -39,13 +48,13 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel"></h5>
+        <h5 class="modal-title" id="exampleModalLabel">Información usuario</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" id="contenido_modal">
         <div class="row">
 		  <div class="col">
-		    <label for="">Nombre:</label>
+		    <label for=""><b>Nombre:</b></label>
 		  </div>
 		  <div class="col">
 		    <span id="nombreUsuario"></span>
@@ -53,7 +62,7 @@
 		</div>
 		<div class="row">
 		  <div class="col">
-		    <label for="">Username:</label>
+		    <label for=""><b>Username:</b></label>
 		  </div>
 		  <div class="col">
 		    <span id="usernameUsuario"></span>
@@ -61,7 +70,7 @@
 		</div>
 		<div class="row">
 		  <div class="col">
-		    <label for="">mail:</label>
+		    <label for=""><b>mail:</b></label>
 		  </div>
 		  <div class="col">
 		    <span id="emailUsuario"></span>
@@ -72,8 +81,7 @@
       <div class="container" id="div_modal_botones">      	
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>
@@ -97,9 +105,6 @@
 		});
 
 		tabla_lista_usuarios.innerHTML = tableUser;
-
-		
-
 	}
 
 	const GetDataUser = async ($id) =>{
@@ -111,12 +116,12 @@
   		document.getElementById('usernameUsuario').innerHTML = usuario.username;
   		document.getElementById('emailUsuario').innerHTML = usuario.email;
 
-  		let divBotones = `
-			<a href="/posts/?idUsuario=${usuario.id}" class="btn btn-primary"> posts</a>
-      		<a href="" class="btn btn-primary"> todos</a>`;
+  		let divBotones = `<div class="container mb-3" style="text-align = center">		
+			<a href="posts/?idUsuario=${usuario.id}" class="btn btn-info"> Posts</a>
+			<a href="todos/?idUsuario=${usuario.id}" class="btn btn-success"> Tareas</a>
+		</div>`;
 
       	div_modal_botones.innerHTML = divBotones;
-
 
 	}	
   GetUsers();
