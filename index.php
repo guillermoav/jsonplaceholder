@@ -69,9 +69,7 @@
 		</div>
       </div>
       <br>
-      <div class="container">
-      	<button type="button" class="btn btn-primary"> posts</button>
-      	<button type="button" class="btn btn-primary"> todos</button>
+      <div class="container" id="div_modal_botones">      	
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -108,9 +106,18 @@
 		const response = await fetch('https://jsonplaceholder.typicode.com/users/'+$id);
 		const usuario = await response.json();
   		
+
   		document.getElementById('nombreUsuario').innerHTML = usuario.name;
   		document.getElementById('usernameUsuario').innerHTML = usuario.username;
   		document.getElementById('emailUsuario').innerHTML = usuario.email;
+
+  		let divBotones = `
+			<a href="/posts/?idUsuario=${usuario.id}" class="btn btn-primary"> posts</a>
+      		<a href="" class="btn btn-primary"> todos</a>`;
+
+      	div_modal_botones.innerHTML = divBotones;
+
+
 	}	
   GetUsers();
 </script>
